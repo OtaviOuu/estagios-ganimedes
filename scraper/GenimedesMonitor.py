@@ -1,6 +1,13 @@
 import nodriver as uc
 from nodriver import *
 import os
+from enum import Enum
+
+
+class Browsers(Enum):
+    CHROMIUM = "chromium"
+    # FIREFOX = "firefox"
+    # EDGE = "edge"
 
 
 class GenimedesMonitor:

@@ -2,7 +2,7 @@ import nodriver as uc
 from nodriver import *
 import asyncio
 from dotenv import load_dotenv
-from GenimedesMonitor import GenimedesMonitor
+from scraper.GenimedesMonitor import GenimedesMonitor, Browsers
 
 
 async def load_browser(browser_name: str) -> uc.Browser:
@@ -17,7 +17,7 @@ async def load_browser(browser_name: str) -> uc.Browser:
 async def main() -> None:
     load_dotenv(override=True)
 
-    browser = await load_browser("chromium")
+    browser = await load_browser(Browsers.CHROMIUM.value)
     monitor = GenimedesMonitor(browser)
     await monitor.scrape(browser)
 

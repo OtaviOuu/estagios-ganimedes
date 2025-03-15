@@ -14,15 +14,14 @@ class GenimedesMonitor:
     def __init__(self, browser: uc.Browser):
         self.main_url = "https://www2.ime.usp.br/ganimedes/public/login.xhtml"
         self.browser = browser
-        self.user = os.getenv("USER")
-        self.password = os.getenv("PASS")
+        self.credentials = {"user": os.getenv("USER"), "password": os.getenv("PASS")}
 
     async def _login(self, page: uc.Tab) -> None:
         user_input = await page.find("#loginUsuario")
-        await user_input.send_keys(self.user)
+        await user_input.send_keys(self.credentials.get("user"))
 
         password_input = await page.find("#senhaUsuario")
-        await password_input.send_keys(self.password)
+        await password_input.send_keys(self.credentials.get("password"))
 
         login_btn = await page.find("#botaoLogin")
         await login_btn.mouse_click()

@@ -25,6 +25,12 @@ class GenimedesMonitor:
 
         login_btn = await page.find("#botaoLogin")
         await login_btn.mouse_click()
+
+        # TODO:
+        err = await page.find("Internal Server Error")
+        if err:
+            self.browser.stop()
+            raise Exception("Internal Server Error")
         await page.wait(t=2)
 
     async def _get_login_form(self, page: uc.Tab) -> None:

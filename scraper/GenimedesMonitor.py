@@ -17,11 +17,15 @@ class GenimedesMonitor:
         self.credentials = {"user": os.getenv("USER"), "password": os.getenv("PASS")}
 
     async def _login(self, page: uc.Tab) -> None:
+        user, password = self.credentials.get("user"), self.credentials.get("password")
+        if not user or not password:
+            raise Exception("User or password not found in .env")
+
         user_input = await page.find("#loginUsuario")
-        await user_input.send_keys(self.credentials.get("user"))
+        await user_input.send_keys(user)
 
         password_input = await page.find("#senhaUsuario")
-        await password_input.send_keys(self.credentials.get("password"))
+        await password_input.send_keys(password)
 
         login_btn = await page.find("#botaoLogin")
         await login_btn.mouse_click()
